@@ -8,7 +8,8 @@ from .views import PostViewSet, CommentViewSet, FollowList, GroupList
 
 router = DefaultRouter()
 router.register('', PostViewSet, basename='posts')
-router.register(r'(?P<post_id>\d+)/comments', CommentViewSet, basename='comments')
+router.register(r'(?P<post_id>\d+)/comments',
+                CommentViewSet, basename='comments')
 
 urlpatterns = [
     path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),

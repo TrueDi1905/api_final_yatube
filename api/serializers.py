@@ -48,4 +48,3 @@ class GroupSerializer(serializers.ModelSerializer):
     class Meta:
         fields = ('id', 'title')
         model = Group
-

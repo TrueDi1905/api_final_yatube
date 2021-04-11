@@ -35,7 +35,8 @@ class Comment(models.Model):
 
 class Group(models.Model):
     title = models.CharField(max_length=200, verbose_name="Название")
-    slug = models.fields.SlugField(unique=True, verbose_name="Уникальный адрес", blank=True)
+    slug = models.fields.SlugField(unique=True,
+                                   verbose_name="Уникальный адрес", blank=True)
     description = models.TextField(verbose_name="Описание", blank=True)
 
     def __str__(self):
