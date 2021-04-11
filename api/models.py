@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.db import models
+from django.utils.text import slugify
 
 User = get_user_model()
 
@@ -12,6 +13,8 @@ class Post(models.Model):
     author = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="posts"
     )
+    group = models.ForeignKey('Group', on_delete=models.CASCADE,
+                              related_name="posts", blank=True, null=True)
 
     def __str__(self):
         return self.text
@@ -28,3 +31,24 @@ class Comment(models.Model):
     created = models.DateTimeField(
         "Дата добавления", auto_now_add=True, db_index=True
     )
+
+
+class Group(models.Model):
+    title = models.CharField(max_length=200, verbose_name="Название")
+    slug = models.fields.SlugField(unique=True, verbose_name="Уникальный адрес", blank=True)
+    description = models.TextField(verbose_name="Описание", blank=True)
+
+    def __str__(self):
+        return self.title
+
+    def save(self, *args, **kwargs):
+        if not self.id:
+            self.slug = slugify(self.title)
+        super(Group, self).save(*args, **kwargs)
+
+
+class Follow(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE,
+                             related_name="follower")
+    following = models.ForeignKey(User, on_delete=models.CASCADE,
+                               related_name="following")
