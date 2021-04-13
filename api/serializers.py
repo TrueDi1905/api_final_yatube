@@ -1,4 +1,3 @@
-from django.shortcuts import get_object_or_404
 from rest_framework import serializers
 from rest_framework.validators import UniqueTogetherValidator
 
@@ -32,7 +31,8 @@ class FollowSerializer(serializers.ModelSerializer):
 
     def validate(self, data):
         if data['user'] == data['following']:
-            raise serializers.ValidationError("Нельзя подписаться на самого себя")
+            raise serializers.ValidationError(
+                "Нельзя подписаться на самого себя")
         return data
 
     class Meta:

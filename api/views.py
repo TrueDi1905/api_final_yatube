@@ -1,5 +1,5 @@
 from django.shortcuts import get_object_or_404
-from rest_framework import viewsets, permissions, generics, filters
+from rest_framework import viewsets, permissions, filters
 
 from .models import Comment, Post, Follow, Group, \
     FollowViewSetCustom, GroupViewSetCustom

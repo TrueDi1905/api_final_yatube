@@ -59,13 +59,15 @@ class Follow(models.Model):
 
     class Meta:
         constraints = [
-            UniqueConstraint(fields=['user', 'following'], name='unique_fields',)
+            UniqueConstraint(
+                fields=['user', 'following'],
+                name='unique_fields',)
         ]
 
 
 class FollowViewSetCustom(mixins.CreateModelMixin,
-                   mixins.ListModelMixin,
-                   GenericViewSet):
+                          mixins.ListModelMixin,
+                          GenericViewSet):
     """
     A viewset that provides default `create()` and `list()` actions.
     """
@@ -73,8 +75,8 @@ class FollowViewSetCustom(mixins.CreateModelMixin,
 
 
 class GroupViewSetCustom(mixins.CreateModelMixin,
-                   mixins.ListModelMixin,
-                   GenericViewSet):
+                         mixins.ListModelMixin,
+                         GenericViewSet):
     """
     A viewset that provides default `create()` and `list()` actions.
     """
