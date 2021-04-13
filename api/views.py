@@ -1,7 +1,8 @@
 from django.shortcuts import get_object_or_404
 from rest_framework import viewsets, permissions, generics, filters
 
-from .models import Comment, Post, Follow, Group
+from .models import Comment, Post, Follow, Group, \
+    FollowViewSetCustom, GroupViewSetCustom
 from .serializers import CommentSerializer, PostSerializer, \
     FollowSerializer, GroupSerializer
 from .permissions import IsOwnerOrReadOnly
@@ -38,11 +39,11 @@ class CommentViewSet(viewsets.ModelViewSet):
         return post.comments
 
 
-class FollowList(generics.ListCreateAPIView):
+class FollowViewSet(FollowViewSetCustom):
     queryset = Follow.objects.all()
     serializer_class = FollowSerializer
     filter_backends = [filters.SearchFilter]
-    search_fields = ['=user__username', '=following__username', ]
+    search_fields = ['user__username', 'following__username', ]
 
     def get_queryset(self):
         return Follow.objects.filter(
@@ -53,7 +54,7 @@ class FollowList(generics.ListCreateAPIView):
         serializer.save(user=self.request.user)
 
 
-class GroupList(generics.ListCreateAPIView):
+class GroupViewSet(GroupViewSetCustom):
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
     permission_classes = (permissions.AllowAny,)
