@@ -9,8 +9,8 @@ from .permissions import IsOwnerOrReadOnly
 
 
 class ViewSetCustom(mixins.CreateModelMixin,
-                          mixins.ListModelMixin,
-                          GenericViewSet):
+                    mixins.ListModelMixin,
+                    GenericViewSet):
     """
     A viewset that provides default `create()` and `list()` actions.
     """
