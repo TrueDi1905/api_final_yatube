@@ -1,11 +1,20 @@
 from django.shortcuts import get_object_or_404
-from rest_framework import viewsets, permissions, filters
+from rest_framework import viewsets, permissions, filters, mixins
+from rest_framework.viewsets import GenericViewSet
 
-from .models import Comment, Post, Follow, Group, \
-    FollowViewSetCustom, GroupViewSetCustom
+from .models import Comment, Post, Follow, Group
 from .serializers import CommentSerializer, PostSerializer, \
     FollowSerializer, GroupSerializer
 from .permissions import IsOwnerOrReadOnly
+
+
+class ViewSetCustom(mixins.CreateModelMixin,
+                          mixins.ListModelMixin,
+                          GenericViewSet):
+    """
+    A viewset that provides default `create()` and `list()` actions.
+    """
+    pass
 
 
 class PostViewSet(viewsets.ModelViewSet):
@@ -39,7 +48,7 @@ class CommentViewSet(viewsets.ModelViewSet):
         return post.comments
 
 
-class FollowViewSet(FollowViewSetCustom):
+class FollowViewSet(ViewSetCustom):
     queryset = Follow.objects.all()
     serializer_class = FollowSerializer
     filter_backends = [filters.SearchFilter]
@@ -54,7 +63,7 @@ class FollowViewSet(FollowViewSetCustom):
         serializer.save(user=self.request.user)
 
 
-class GroupViewSet(GroupViewSetCustom):
+class GroupViewSet(ViewSetCustom):
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
     permission_classes = (permissions.AllowAny,)

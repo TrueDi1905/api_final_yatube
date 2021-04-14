@@ -2,8 +2,6 @@ from django.contrib.auth import get_user_model
 from django.db import models
 from django.db.models import UniqueConstraint
 from django.utils.text import slugify
-from rest_framework import mixins
-from rest_framework.viewsets import GenericViewSet
 
 User = get_user_model()
 
@@ -63,21 +61,3 @@ class Follow(models.Model):
                 fields=['user', 'following'],
                 name='unique_fields',)
         ]
-
-
-class FollowViewSetCustom(mixins.CreateModelMixin,
-                          mixins.ListModelMixin,
-                          GenericViewSet):
-    """
-    A viewset that provides default `create()` and `list()` actions.
-    """
-    pass
-
-
-class GroupViewSetCustom(mixins.CreateModelMixin,
-                         mixins.ListModelMixin,
-                         GenericViewSet):
-    """
-    A viewset that provides default `create()` and `list()` actions.
-    """
-    pass
