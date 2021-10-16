@@ -21,7 +21,7 @@ API к сервису https://github.com/TrueDi1905/yatube
 Для доступа к API необходимо получить токен: Нужно выполнить POST-запрос localhost:8000/api/v1/token/ передав поля username и password. API вернет JWT-токен.
 Передав токен можно будет обращаться к методам, например:
 /api/v1/posts/ (GET, POST, PUT, PATCH, DELETE)
-При отправке запроса передавайте токен в заголовке Authorization: Bearer <токен>
+При отправке запроса передавайте токен в заголовке Authorization: Bearer <токен>.
 Слово Bearer здесь заменяет слово Token и означает, что за ним следует сам токен.
 
 ### Автор
