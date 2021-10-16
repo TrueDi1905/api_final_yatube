@@ -1,4 +1,4 @@
-# api_final
+# api_final_yatube
 ### Описание
 API к сервису https://github.com/TrueDi1905/yatube
 - Авторизация по JWT токену
